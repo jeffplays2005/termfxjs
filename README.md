@@ -4,7 +4,8 @@ Currently work in progress project
 # Table of contents:
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [License](#license)
+- [Changelog](#Changelog)
+- [License](#License)
 
 # Installation
 ```
@@ -17,6 +18,7 @@ const termfx = require('termfx');
 var registry = termfx.New();
 
 registry.RegisterVariable("foo", "bar")
+registry.RegisterFunction("test", function(){});
 ```
 WIP
 
