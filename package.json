@@ -1,0 +1,16 @@
+{
+  "name": "termfx",
+  "version": "1.0.1",
+  "description": "termfx project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "keywords": [
+    "output",
+    "function",
+    "callback"
+  ],
+  "author": "Jeffplays2005",
+  "license": "MIT"
+}
