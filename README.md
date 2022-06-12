@@ -21,7 +21,7 @@ npm install termfx
 ```js
 const termfx = require('termfx');
 const delay = require('delay');
-var registry = termfx.New();
+var registry = new termfx.New();
 
 registry.RegisterVariable("foo", "bar")
 registry.RegisterFunction("sleep", function(x){ await delay(x) });
