@@ -1,0 +1,28 @@
+{
+  "name": "termfx",
+  "version": "1.0.14",
+  "description": "termfx project",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/index.js",
+    "st": "node test/strings.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffplays2005/termfx.git"
+  },
+  "keywords": [
+    "output",
+    "function",
+    "callback"
+  ],
+  "author": "Jeffplays2005",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffplays2005/termfx/issues"
+  },
+  "homepage": "https://github.com/jeffplays2005/termfx#readme"
+}
