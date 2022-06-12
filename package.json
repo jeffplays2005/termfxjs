@@ -1,6 +1,6 @@
 {
   "name": "termfx",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "termfx project",
   "main": "index.js",
   "directories": {
@@ -20,7 +20,7 @@
     "callback"
   ],
   "author": "Jeffplays2005",
-  "license": "MIT",
+  "license": "Apache 2.0 License",
   "bugs": {
     "url": "https://github.com/jeffplays2005/termfx/issues"
   },

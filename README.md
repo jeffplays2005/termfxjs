@@ -40,7 +40,7 @@ registry.Execute(string, console.log)
 To fix termfx logging `undefined` at the start, you can add a clear function and clear the log first before starting.
 
 # License
-Copyright MIT © 2022 Jeffplays2005
+Copyright Apache 2.0 License © 2022 Jeffplays2005
 See LICENSE in root directory.
 
 [npm-image]: https://flat.badgen.net/npm/v/termfx

@@ -46,3 +46,6 @@
 ## 1.0.14
 * Updated package.json
 * Fixed commented out code
+## 1.0.15
+* Updated license and changed to Apache License 2.0
+* Same bugs as 1.0.12
