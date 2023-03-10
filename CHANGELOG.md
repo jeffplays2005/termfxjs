@@ -55,3 +55,8 @@
 * Bug fixes
   - Fixed logging undefined on start.
   - Fixed broken custom splitters, they should work now.
+## 1.1.0
+* Major bug fix
+  - Fixed bug from 1.0.17
+* Rewrote example in index.js
+* Fix readme displaying the wrong github repo + update version

@@ -1,6 +1,4 @@
 # Termfx JS
-Currently work in progress project
-
 [![npm version][npm-image]][npm-url]
 [![install size][install-size-image]][install-size-url]
 
@@ -20,11 +18,14 @@ npm install termfx
 # Usage
 ```js
 const termfx = require('termfx');
-const delay = require('delay');
 var registry = new termfx.New();
 
-registry.RegisterVariable("foo", "bar")
-registry.RegisterFunction("sleep", function(x){ await delay(x) });
+registry.RegisterVariable("foo", "bar");
+registry.RegisterFunction("sleep", 
+  function(delayInms){ 
+    return new Promise(resolve => setTimeout(resolve, delayInms)); 
+  }
+);
 
 var string =
 `<<sleep(1000)>>
@@ -36,8 +37,9 @@ that was 5 seconds
 registry.Execute(string, console.log)
 ```
 
-# Bugs
-* Fix termfx from ignoring variables in the middle/end of a sentence
+# Bugs or suggestions
+* Please report any bugs or provide suggestions in the github!
+
 
 # License
 Copyright Apache 2.0 License © 2022 Jeffplays2005

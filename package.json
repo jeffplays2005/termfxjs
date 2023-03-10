@@ -1,6 +1,6 @@
 {
   "name": "termfx",
-  "version": "1.0.17",
+  "version": "1.1.0",
   "description": "A template file parser which supports variables and functions as callbacks.",
   "main": "index.js",
   "directories": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffplays2005/termfx.git"
+    "url": "git+https://github.com/jeffplays2005/termfxjs.git"
   },
   "keywords": [
     "output",
@@ -22,7 +22,7 @@
   "author": "Jeffplays2005",
   "license": "Apache 2.0 License",
   "bugs": {
-    "url": "https://github.com/jeffplays2005/termfx/issues"
+    "url": "https://github.com/jeffplays2005/termfxjs/issues"
   },
-  "homepage": "https://github.com/jeffplays2005/termfx#readme"
+  "homepage": "https://github.com/jeffplays2005/termfxjs#readme"
 }
