@@ -26,8 +26,8 @@ class New {
       this._validateExecute(input, writer);
       const loop = async () => {
         for(var line of input.split('\n')){
-          line = line.split('<<').join('');
-          line = line.split('>>').join('');
+          line = line.split(this.split[0]).join('');
+          line = line.split(this.split[1]).join('');
           for(var i in commands){
             if(i.startsWith('$')){
               line = line.split(i).join(commands[i]);
@@ -59,7 +59,6 @@ class New {
     if(typeof(writer) !== 'function') throw new Error(`Writer must be a function. `);
   }
   _validateSplitters(CustomSplit){
-    console.log(this.split)
     if(CustomSplit){
       if(!Array.isArray(CustomSplit)) throw new Error("CustomSplit must be an array")
       if(!CustomSplit[0]) throw new Error("startTag cannot be empty")

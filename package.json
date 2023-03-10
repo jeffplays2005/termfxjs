@@ -1,7 +1,7 @@
 {
   "name": "termfx",
-  "version": "1.0.15",
-  "description": "termfx project",
+  "version": "1.0.17",
+  "description": "A template file parser which supports variables and functions as callbacks.",
   "main": "index.js",
   "directories": {
     "test": "test"

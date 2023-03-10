@@ -51,3 +51,7 @@
 * Same bugs as 1.0.12
 ## 1.0.16
 * New bug: functions registered in the middle or end of a string will not be registered.
+## 1.0.17
+* Bug fixes
+  - Fixed logging undefined on start.
+  - Fixed broken custom splitters, they should work now.
