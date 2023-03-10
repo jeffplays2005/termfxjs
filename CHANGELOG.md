@@ -60,3 +60,6 @@
   - Fixed bug from 1.0.17
 * Rewrote example in index.js
 * Fix readme displaying the wrong github repo + update version
+## 1.1.1
+* Bug fix
+  - Fixed to run async
