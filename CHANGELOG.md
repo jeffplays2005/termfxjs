@@ -63,3 +63,8 @@
 ## 1.1.1
 * Bug fix
   - Fixed to run async
+## 1.1.2
+* Fixed wrong amounts of paragraph breaks
+* Tested against most standard cases of use
+* Updated test case in index.js
+  - Next update will be unlikely to occur soon due to most of the bugs being fixed. 
