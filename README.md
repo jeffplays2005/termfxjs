@@ -37,7 +37,8 @@ registry.Execute(string, console.log)
 ```
 
 # Bugs
-To fix termfx logging `undefined` at the start, you can add a clear function and clear the log first before starting.
+* Fix termfx from ignoring variables in the middle/end of a sentence
+* Fix termfx logging `undefined` at the start, you can add a clear function and clear the log first before starting.
 
 # License
 Copyright Apache 2.0 License © 2022 Jeffplays2005

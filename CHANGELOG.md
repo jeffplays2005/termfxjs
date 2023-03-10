@@ -49,3 +49,5 @@
 ## 1.0.15
 * Updated license and changed to Apache License 2.0
 * Same bugs as 1.0.12
+## 1.0.16
+* New bug: functions registered in the middle or end of a string will not be registered.
