@@ -1,7 +1,8 @@
 class New {
-  constructor(split){
+  constructor(split, paragraph){
     var commands = {};
-    this.split = this._validateSplitters(split) || [ "<<", ">>" ];;
+    this.split = this._validateSplitters(split) || [ "<<", ">>" ];
+    this.paragraph = paragraph;
     this.RegisterVariable = function RegisterVariable(name, value){
       name = "$" + name;
 
@@ -25,7 +26,9 @@ class New {
     this.Execute = async function Execute(input, writer){
       this._validateExecute(input, writer);
       return new Promise(async (resolve, reject) => {
-        for(var line of input.split('\n')){
+        const splitted = input.split('\n') 
+        for(var linepos in splitted){
+          var line = splitted[linepos];
           line = line.split(this.split[0]).join(this.split[1]);
           line = line.split(this.split[1]);
           if(line[0] == '') line.shift();
@@ -39,7 +42,7 @@ class New {
           for (var pos in line) {
             const word = line[pos];
             var ew = word.split('(');
-            if(pos == line.length - 1) ew += "\n";
+            if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) ew += "\n";
             var command = commands[ew[0] + "()"];
             var cmdArgs = ew[1]?.split(")");
             cmdArgs = cmdArgs?.join('');

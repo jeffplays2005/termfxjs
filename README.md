@@ -7,7 +7,10 @@
 # Table of contents:
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Bugs](#Bugs)
+  - [No line break](#No-line-break)
+  - [Line break](#Line-break)
+  - [Custom splitter](#Custom-splitter)
+- [Bugs or suggestions](#Bugs-or-suggestions)
 - [License](#License)
 
 # Installation
@@ -16,7 +19,9 @@ npm install termfx
 ```
 
 # Usage
+## No line break:
 ```js
+// Using process.stdout (no line break)
 const termfx = require('termfx');
 var registry = new termfx.New();
 
@@ -35,6 +40,34 @@ that was 5 seconds
 <<$foo>>`;
 
 registry.Execute(string, process.stdout.write.bind(process.stdout));
+```
+## Line break:
+```js
+// Using console.log (line break)
+const termfx = require('termfx');
+var registry = new termfx.New(undefined, true);
+
+registry.RegisterVariable("foo", "bar");
+registry.RegisterFunction("sleep", 
+  function(delayInms){ 
+    return new Promise(resolve => setTimeout(resolve, delayInms)); 
+  }
+);
+
+var string =
+`<<sleep(1000)>>
+that was 1 second
+<<sleep(5000)>>
+that was 5 seconds
+<<$foo>>`;
+
+registry.Execute(string, console.log);
+```
+## Custom splitter
+```js
+// custom splitter
+const termfx = require('termfx');
+var registry = new termfx.New(["[[", "]]"], true);
 ```
 
 # Bugs or suggestions

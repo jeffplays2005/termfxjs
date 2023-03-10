@@ -66,5 +66,7 @@
 ## 1.1.2
 * Fixed wrong amounts of paragraph breaks
 * Tested against most standard cases of use
-* Updated test case in index.js
-  - Next update will be unlikely to occur soon due to most of the bugs being fixed. 
+* Updated test case in README
+## 1.1.3
+* Added the option to turn on paragraph breaks or disable paragraph breaks, defaults to off
+* Updated test case in README
