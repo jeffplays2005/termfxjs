@@ -28,6 +28,7 @@ class New {
         for(var line of input.split('\n')){
           line = line.split(this.split[0]).join(this.split[1]);
           line = line.split(this.split[1]);
+          if(line[0] == '') line.shift();
           for(var i in line){
             if(Object.keys(commands).some(c=>line[i].includes(c))){
               for(var c in commands){

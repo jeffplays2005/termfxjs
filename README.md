@@ -32,14 +32,13 @@ var string =
 that was 1 second
 <<sleep(5000)>>
 that was 5 seconds
-<<$foo>>`
+<<$foo>>`;
 
-registry.Execute(string, console.log)
+registry.Execute(string, process.stdout.write.bind(process.stdout));
 ```
 
 # Bugs or suggestions
 * Please report any bugs or provide suggestions in the github!
-
 
 # License
 Copyright Apache 2.0 License © 2022 Jeffplays2005
