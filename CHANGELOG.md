@@ -73,3 +73,6 @@
 ## 1.1.4
 * Fully fixed carriage return and new line bugs
 * Recoded with comments for better reading
+* Added invalid tags
+## 1.1.5
+* Looks like some debugging caused problems, removed some debugging lines

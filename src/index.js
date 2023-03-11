@@ -23,19 +23,14 @@ class New {
 
       commands[name] = func;
     }
-    // [ '', 'sleep(50)', '     test', 'sleep(500)', ' testest',  '$foo', '', '$bar', '', 'not(20)', '' ];
     this.Execute = async function Execute(input, writer){
       this._validateExecute(input, writer);
-      const lines = input.split('\n');
+      const lines = input.split('(?<=\\R)');
       for(var line_position in lines){
         // fetch each line
         var line = lines[line_position];
-        console.log(line)
-        // "<<sleep(50)>>     test<<sleep(500)>> testest<<$foo>><<$bar>><<not(20)>>"
         // split into individual functions and strings
         var individual_characters = line.split(this.split[0]).join(this.split[1]).split(this.split[1]);
-        console.log(individual_characters)
-        // [ "", "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>", "" ];
         // check if the first char is a << splitted into "" and remove
         // if(!individual_characters[0]) individual_characters.shift();
         function removeValue(value, index, arr) {
@@ -48,17 +43,8 @@ class New {
           return false;
         };
         individual_characters.filter(removeValue);
-        if(this.paragraph && line_position+1 !== lines.length) {
-          console.log(line_position)
-          console.log(lines.length)
-          individual_characters.push("\n");
-        }
+        if(this.paragraph && line_position !== lines.length - 1) individual_characters.push("\r\n");
         // check if the last char is a << splitted into "" and remove
-        console.log(individual_characters)
-        // [ "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>", "" ];
-        // if(!individual_characters[individual_characters.length - 1]) individual_characters.pop();
-        console.log(individual_characters)
-        // [ "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>" ];
         // replace all variables, e.g. "$foo" to "bar"
         for(var part_position in individual_characters){
           // fetch all variables from the commands object and check if any are in the object of characters
@@ -72,8 +58,6 @@ class New {
             individual_characters[part_position] = `[#Unknown tag \"${individual_characters[part_position]}\"#]`;
           }
         };
-        console.log(individual_characters)
-        // [ "sleep(50)", "     test", "sleep(500)", " testest", "bar", "[#Unknown tag "$bar"#]", "<<not(20)>>" ];
         // all variables have been supposedly replaced
         // now replace functions into actual functions
         for(var part_position in individual_characters){
