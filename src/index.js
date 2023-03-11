@@ -23,39 +23,91 @@ class New {
 
       commands[name] = func;
     }
+    // [ '', 'sleep(50)', '     test', 'sleep(500)', ' testest',  '$foo', '', '$bar', '', 'not(20)', '' ];
     this.Execute = async function Execute(input, writer){
       this._validateExecute(input, writer);
-      return new Promise(async (resolve, reject) => {
-        const splitted = input.split('\n') 
-        for(var linepos in splitted){
-          var line = splitted[linepos];
-          line = line.split(this.split[0]).join(this.split[1]);
-          line = line.split(this.split[1]);
-          if(line[0] == '') line.shift();
-          for(var i in line){
-            if(Object.keys(commands).some(c=>line[i].includes(c))){
-              for(var c in commands){
-                line[i] = line[i].split(c).join(commands[c]);
-              };
-            };
+      const lines = input.split('\n');
+      for(var line_position in lines){
+        // fetch each line
+        var line = lines[line_position];
+        console.log(line)
+        // "<<sleep(50)>>     test<<sleep(500)>> testest<<$foo>><<$bar>><<not(20)>>"
+        // split into individual functions and strings
+        var individual_characters = line.split(this.split[0]).join(this.split[1]).split(this.split[1]);
+        console.log(individual_characters)
+        // [ "", "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>", "" ];
+        // check if the first char is a << splitted into "" and remove
+        // if(!individual_characters[0]) individual_characters.shift();
+        function removeValue(value, index, arr) {
+          // If the value at the current array index matches the specified value (2)
+          if (value === "") {
+            // Removes the value from the original array
+            arr.splice(index, 1);
+            return true;
           };
-          for (var pos in line) {
-            const word = line[pos];
-            var ew = word.split('(');
-            if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) ew += "\n";
-            var command = commands[ew[0] + "()"];
-            var cmdArgs = ew[1]?.split(")");
-            cmdArgs = cmdArgs?.join('');
-            if(command){
-              await command?.apply(null, cmdArgs.split(/,\s?/));
-            } else {
-              await writer(ew.toString());
-            };
-          };
+          return false;
         };
-        return resolve();
-      })
-    }
+        individual_characters.filter(removeValue);
+        if(this.paragraph && line_position+1 !== lines.length) {
+          console.log(line_position)
+          console.log(lines.length)
+          individual_characters.push("\n");
+        }
+        // check if the last char is a << splitted into "" and remove
+        console.log(individual_characters)
+        // [ "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>", "" ];
+        // if(!individual_characters[individual_characters.length - 1]) individual_characters.pop();
+        console.log(individual_characters)
+        // [ "sleep(50)", "     test", "sleep(500)", " testest", "<<$foo>>", "<<$bar>>", "<<not(20)>>" ];
+        // replace all variables, e.g. "$foo" to "bar"
+        for(var part_position in individual_characters){
+          // fetch all variables from the commands object and check if any are in the object of characters
+          if(Object.keys(commands).some(variable => individual_characters[part_position].includes(variable))){
+            // found a variable
+            for(var variable in commands){
+              // replace all found variables with the corresponding correct variable and replace
+              individual_characters[part_position] = individual_characters[part_position].split(variable).join(commands[variable]);
+            }
+          } else if (individual_characters[part_position].startsWith("$")){ // check if is a variable but not existant, replace with [#Unknown tag "$tag"#]
+            individual_characters[part_position] = `[#Unknown tag \"${individual_characters[part_position]}\"#]`;
+          }
+        };
+        console.log(individual_characters)
+        // [ "sleep(50)", "     test", "sleep(500)", " testest", "bar", "[#Unknown tag "$bar"#]", "<<not(20)>>" ];
+        // all variables have been supposedly replaced
+        // now replace functions into actual functions
+        for(var part_position in individual_characters){
+          // check if is a function
+          var character = individual_characters[part_position];
+          var possible_function = character.split('(');
+          var command = commands[possible_function[0] + "()"];
+          if(command){
+            // is a function
+            await command.apply(null, possible_function[1].split(")").join('').split(/,\s?/));
+          } else {
+            // is not a function
+            if(possible_function.length > 1 && character.endsWith(")")){ // check if a function is not existant, replace with [#Unknown tag "tag()"#]
+              character = `[#Unknown tag "${possible_function[0] + "()"}"#]`;
+            };
+            writer(character);
+          }
+        }
+      };
+      return;
+      for(var linepos in splitted){
+        if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) {
+          ew += "\n";
+        }
+        var command = commands[ew[0] + "()"];
+        var cmdArgs = ew[1]?.split(")");
+        cmdArgs = cmdArgs?.join('');
+        if(command){
+          await command?.apply(null, cmdArgs.split(/,\s?/));
+        } else {
+          await writer(ew.toString());
+        };
+      };
+    };
   }
   _validateExecute(input, writer){
     if(!input) throw new Error(`Not enough arguments in call to Execute. Missing input. `);

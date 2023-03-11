@@ -70,3 +70,6 @@
 ## 1.1.3
 * Added the option to turn on paragraph breaks or disable paragraph breaks, defaults to off
 * Updated test case in README
+## 1.1.4
+* Fully fixed carriage return and new line bugs
+* Recoded with comments for better reading
