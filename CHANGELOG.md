@@ -76,3 +76,5 @@
 * Added invalid tags
 ## 1.1.5
 * Looks like some debugging caused problems, removed some debugging lines
+## 1.1.6
+* Now checks input type and throws an error if the `typeof(input)` is not string.

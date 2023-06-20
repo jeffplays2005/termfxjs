@@ -78,25 +78,26 @@ class New {
         }
       };
       return;
-      for(var linepos in splitted){
-        if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) {
-          ew += "\n";
-        }
-        var command = commands[ew[0] + "()"];
-        var cmdArgs = ew[1]?.split(")");
-        cmdArgs = cmdArgs?.join('');
-        if(command){
-          await command?.apply(null, cmdArgs.split(/,\s?/));
-        } else {
-          await writer(ew.toString());
-        };
-      };
+      // for(var linepos in splitted){
+      //   if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) {
+      //     ew += "\n";
+      //   }
+      //   var command = commands[ew[0] + "()"];
+      //   var cmdArgs = ew[1]?.split(")");
+      //   cmdArgs = cmdArgs?.join('');
+      //   if(command){
+      //     await command?.apply(null, cmdArgs.split(/,\s?/));
+      //   } else {
+      //     await writer(ew.toString());
+      //   };
+      // };
     };
   }
   _validateExecute(input, writer){
     if(!input) throw new Error(`Not enough arguments in call to Execute. Missing input. `);
     if(!writer) throw new Error(`Not enough arguments in call to Execute. Missing writer. `);
     if(typeof(writer) !== 'function') throw new Error(`Writer must be a function. `);
+    if(typeof(input) !== 'string') throw new Error(`Input must be a string. `);
   }
   _validateSplitters(CustomSplit){
     if(CustomSplit){
