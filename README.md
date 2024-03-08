@@ -1,4 +1,6 @@
 # Termfx JS
+A template parser in Node.js that supports replacers and functions. Allows users to use custom outputs and access functions and variables in a custom template file. 
+
 [![npm version][npm-image]][npm-url]
 [![install size][install-size-image]][install-size-url]
 
@@ -26,9 +28,9 @@ const termfx = require('termfx');
 var registry = new termfx.New();
 
 registry.RegisterVariable("foo", "bar");
-registry.RegisterFunction("sleep", 
-  function(delayInms){ 
-    return new Promise(resolve => setTimeout(resolve, delayInms)); 
+registry.RegisterFunction("sleep",
+  function(delayInms){
+    return new Promise(resolve => setTimeout(resolve, delayInms));
   }
 );
 
@@ -48,9 +50,9 @@ const termfx = require('termfx');
 var registry = new termfx.New(undefined, true);
 
 registry.RegisterVariable("foo", "bar");
-registry.RegisterFunction("sleep", 
-  function(delayInms){ 
-    return new Promise(resolve => setTimeout(resolve, delayInms)); 
+registry.RegisterFunction("sleep",
+  function(delayInms){
+    return new Promise(resolve => setTimeout(resolve, delayInms));
   }
 );
 
