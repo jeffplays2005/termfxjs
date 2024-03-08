@@ -82,3 +82,5 @@
 * Updated some variable names in index.js.
 * Updates towards README.md to remove the confusion towards CRLF and LF input files due to the fix in update 1.1.4.
 * Updates to test/index.js due to CRLF/LF.
+## 1.1.8
+* Update on README.md

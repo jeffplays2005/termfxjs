@@ -9,8 +9,8 @@ A template parser in Node.js that supports replacers and functions. Allows users
 # Table of contents:
 - [Installation](#Installation)
 - [Usage](#Usage)
-  - [No line break](#No-line-break)
-  - [Line break](#Line-break)
+  - [Carriage Return Line Feed Files](#Carriage-Return-Line-Feed-Files)
+  - [Line Feed](#Line-feed)
   - [Custom splitter](#Custom-splitter)
 - [Bugs or suggestions](#Bugs-or-suggestions)
 - [License](#License)
@@ -21,30 +21,8 @@ npm install termfx
 ```
 
 # Usage
-## LF Files (Line feed)
-These type of files **do not** have a carriage return character at the end of each line(`\r`) and require this, otherwise everything printed out would be displayed in 1 line.
-```js
-const termfx = require('termfx');
-var registry = new termfx.New(null, true);
-
-registry.RegisterVariable("foo", "bar");
-registry.RegisterFunction("sleep",
-  function(delayInms){
-    return new Promise(resolve => setTimeout(resolve, delayInms));
-  }
-);
-
-var string =
-`<<sleep(1000)>>
-that was 1 second
-<<sleep(5000)>>
-that was 5 seconds
-<<$foo>>`;
-
-registry.Execute(string, process.stdout.write.bind(process.stdout));
-```
-## CRLF Files(Carriage return line feed)
-This is what most files termfx is supposedly parsing, files are expected to have `\r\n` at the end of each line. This mode will not add a carriage return `\r` at the end of each line.
+## Carriage Return Line Feed Files
+Also known as CRLF, this is what most files termfx is supposedly parsing, files are expected to have `\r\n` at the end of each line. This mode will not add a carriage return `\r` at the end of each line.
 ```js
 const termfx = require('termfx');
 var registry = new termfx.New();
@@ -65,6 +43,13 @@ that was 5 seconds
 
 registry.Execute(string, process.stdout.write.bind(process.stdout));
 ```
+## Line feed
+Also known as LF, these type of files **do not** have a carriage return character at the end of each line(`\r`) and require this, otherwise everything printed out would be displayed in 1 line.
+```js
+const termfx = require('termfx');
+var registry = new termfx.New(null, true);
+```
+
 ## Custom splitter
 Using a custom splitter that isn't the default `<<`, `>>`.
 ```js
