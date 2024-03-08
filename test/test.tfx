@@ -1,4 +1,4 @@
-<<clear()>>
+<<$clear>>
 <<$foo>>
 e
 <<sleep(3000)>>

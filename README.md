@@ -1,5 +1,5 @@
 # Termfx JS
-A template parser in Node.js that supports replacers and functions. Allows users to use custom outputs and access functions and variables in a custom template file. 
+A template parser in Node.js that supports replacers and functions. Allows users to use custom outputs and access functions and variables in a custom template file.
 
 [![npm version][npm-image]][npm-url]
 [![install size][install-size-image]][install-size-url]
@@ -21,9 +21,31 @@ npm install termfx
 ```
 
 # Usage
-## No line break:
+## LF Files (Line feed)
+These type of files **do not** have a carriage return character at the end of each line(`\r`) and require this, otherwise everything printed out would be displayed in 1 line.
 ```js
-// Using process.stdout (no line break)
+const termfx = require('termfx');
+var registry = new termfx.New(null, true);
+
+registry.RegisterVariable("foo", "bar");
+registry.RegisterFunction("sleep",
+  function(delayInms){
+    return new Promise(resolve => setTimeout(resolve, delayInms));
+  }
+);
+
+var string =
+`<<sleep(1000)>>
+that was 1 second
+<<sleep(5000)>>
+that was 5 seconds
+<<$foo>>`;
+
+registry.Execute(string, process.stdout.write.bind(process.stdout));
+```
+## CRLF Files(Carriage return line feed)
+This is what most files termfx is supposedly parsing, files are expected to have `\r\n` at the end of each line. This mode will not add a carriage return `\r` at the end of each line.
+```js
 const termfx = require('termfx');
 var registry = new termfx.New();
 
@@ -43,29 +65,8 @@ that was 5 seconds
 
 registry.Execute(string, process.stdout.write.bind(process.stdout));
 ```
-## Line break:
-```js
-// Using console.log (line break)
-const termfx = require('termfx');
-var registry = new termfx.New(undefined, true);
-
-registry.RegisterVariable("foo", "bar");
-registry.RegisterFunction("sleep",
-  function(delayInms){
-    return new Promise(resolve => setTimeout(resolve, delayInms));
-  }
-);
-
-var string =
-`<<sleep(1000)>>
-that was 1 second
-<<sleep(5000)>>
-that was 5 seconds
-<<$foo>>`;
-
-registry.Execute(string, console.log);
-```
 ## Custom splitter
+Using a custom splitter that isn't the default `<<`, `>>`.
 ```js
 // custom splitter
 const termfx = require('termfx');

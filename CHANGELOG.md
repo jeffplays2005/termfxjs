@@ -78,3 +78,7 @@
 * Looks like some debugging caused problems, removed some debugging lines
 ## 1.1.6
 * Now checks input type and throws an error if the `typeof(input)` is not string.
+## 1.1.7
+* Updated some variable names in index.js.
+* Updates towards README.md to remove the confusion towards CRLF and LF input files due to the fix in update 1.1.4.
+* Updates to test/index.js due to CRLF/LF.

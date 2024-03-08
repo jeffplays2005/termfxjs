@@ -1,8 +1,8 @@
 class New {
-  constructor(split, paragraph){
+  constructor(split, carriageReturn){
     var commands = {};
     this.split = this._validateSplitters(split) || [ "<<", ">>" ];
-    this.paragraph = paragraph;
+    this.carriageReturn = carriageReturn;
     this.RegisterVariable = function RegisterVariable(name, value){
       name = "$" + name;
 
@@ -43,7 +43,7 @@ class New {
           return false;
         };
         individual_characters.filter(removeValue);
-        if(this.paragraph && line_position !== lines.length - 1) individual_characters.push("\r\n");
+        if(!this.carriageReturn && line_position !== lines.length - 1) individual_characters.push("\r");
         // check if the last char is a << splitted into "" and remove
         // replace all variables, e.g. "$foo" to "bar"
         for(var part_position in individual_characters){
@@ -78,19 +78,6 @@ class New {
         }
       };
       return;
-      // for(var linepos in splitted){
-      //   if(((pos == line.length - 1) && linepos !== splitted.length - 1) && this.paragraph) {
-      //     ew += "\n";
-      //   }
-      //   var command = commands[ew[0] + "()"];
-      //   var cmdArgs = ew[1]?.split(")");
-      //   cmdArgs = cmdArgs?.join('');
-      //   if(command){
-      //     await command?.apply(null, cmdArgs.split(/,\s?/));
-      //   } else {
-      //     await writer(ew.toString());
-      //   };
-      // };
     };
   }
   _validateExecute(input, writer){
