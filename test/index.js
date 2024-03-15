@@ -5,7 +5,7 @@ var registry = new termfx.New(undefined, true); // due to example given in LF fo
 // testing dup
 (async() => {
   registry.RegisterVariable('foo', 'bar');
-  registry.RegisterVariable('clear', 'c[?25l[0;0H');
+  registry.RegisterVariable('clear', 'c[?25l');
   registry.RegisterFunction('sleep', async function(x){ return new Promise(resolve => setTimeout(resolve, x)) });
 
   var text = await fs.readFileSync(__dirname+'/test.tfx')

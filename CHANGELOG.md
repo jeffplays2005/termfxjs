@@ -84,3 +84,9 @@
 * Updates to test/index.js due to CRLF/LF.
 ## 1.1.8
 * Update on README.md
+## 1.1.9
+* Another change to the testing files to display how termfx works.
+* Updated README.md
+  - Show future plans to remove the need to declare CRLF/LF break files.
+  - Improved the examples.
+  - Better documentation on the methods and what type of parameters they take as input. 
