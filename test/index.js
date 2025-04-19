@@ -9,7 +9,7 @@ const registry = new termfx(undefined, true); // due to example given in LF form
     return new Promise((resolve) => setTimeout(resolve, x));
   });
 
-  const text = fs.readFileSync("./test.tfx");
+  const text = fs.readFileSync("test/test.tfx");
 
   registry.execute(text.toString(), process.stdout.write.bind(process.stdout));
   // registry.Execute(text.toString(), console.log)
