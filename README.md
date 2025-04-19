@@ -76,7 +76,7 @@ var registry = new termfx.New(["[[", "]]"], true);
 ```
 
 # Bugs or suggestions
-* Please report any bugs or provide suggestions in the github!
+* Please report any bugs or provide suggestions on [github (https://github.com/jeffplays2005/termfxjs)!
 
 # License
 Copyright Apache 2.0 License © 2022 Jeffplays2005.

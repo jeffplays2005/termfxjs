@@ -1,15 +1,17 @@
-const fs = require('fs');
-const termfx = require('../index.js');
+const fs = require("fs");
+const termfx = require("../index.js");
 // var registry = new termfx.New();
-var registry = new termfx.New(undefined, true); // due to example given in LF format
+const registry = new termfx.New(undefined, true); // due to example given in LF format
 // testing dup
-(async() => {
-  registry.RegisterVariable('foo', 'bar');
-  registry.RegisterVariable('clear', 'c[?25l');
-  registry.RegisterFunction('sleep', async function(x){ return new Promise(resolve => setTimeout(resolve, x)) });
+(async () => {
+  registry.RegisterVariable("foo", "bar");
+  registry.RegisterVariable("clear", "c[?25l");
+  registry.RegisterFunction("sleep", async function (x) {
+    return new Promise((resolve) => setTimeout(resolve, x));
+  });
 
-  var text = await fs.readFileSync(__dirname+'/test.tfx')
+  const text = fs.readFileSync(__dirname + "/test.tfx");
 
   registry.Execute(text.toString(), process.stdout.write.bind(process.stdout));
   // registry.Execute(text.toString(), console.log)
-})()
+})();
