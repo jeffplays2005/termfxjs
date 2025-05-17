@@ -11,7 +11,7 @@ A template parser in Node.js that supports replacers and functions. Allows users
 - [Usage](#Usage)
   - [Carriage Return Line Feed Files](#Carriage-Return-Line-Feed-Files)
   - [Line Feed](#Line-feed)
-  - [Custom splitter](#Custom-splitter)
+  - [Custom delimiters](#Custom-delimiters)
 - [Bugs or suggestions](#Bugs-or-suggestions)
 - [License](#License)
 
@@ -63,15 +63,17 @@ const registry = new termfx();
 Also known as LF, these type of files **do not** have a carriage return character at the end of each line(`\r`). A `\r` character will be added to the end of every line.  This is used to handle the issue where everything is output in 1 line by the writer.
 ```js
 import termfx from "termfx";
-const registry = new termfx(null, true);
+const registry = new termfx({
+  carriageReturn: true
+});
 ```
 
-## Custom splitter
-Using a custom splitter that isn't the default `<<`, `>>`.
+## Custom delimiters
+Using custom delimiters that aren't the default `<<`, `>>`.
 ```js
-// custom splitter
+// custom delimiters
 import termfx from "termfx";
-const registry = new termfx(["[[", "]]"]);
+const registry = new termfx({ delimiters: ["[[", "]]"] });
 // E.g. This will now allow you to use [[$tag]] instead of <<$tag>>
 ```
 
