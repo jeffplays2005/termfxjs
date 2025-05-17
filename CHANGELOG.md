@@ -14,7 +14,7 @@
 - Changed git
 
 ## 1.0.6
-- Moved changelog from README to seperate CHANGELOG
+- Moved changelog from README to separate CHANGELOG
 
 ## 1.0.7
 - Added custom splitters
