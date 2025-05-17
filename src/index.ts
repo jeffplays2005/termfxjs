@@ -26,40 +26,40 @@ export default class Termfx {
     this.validateExecute(input, writer);
     const lines = input.split(/(?<=\r?\n)/);
     for (const [line_position, line] of lines.entries()) {
-      const individual_characters = line
+      const individualCharacters = line
         .split(this.delimiters[0])
         .join(this.delimiters[1])
         .split(this.delimiters[1]);
 
-      for (let i = individual_characters.length - 1; i >= 0; i--) {
-        if (individual_characters[i] === "") {
-          individual_characters.splice(i, 1);
+      for (let i = individualCharacters.length - 1; i >= 0; i--) {
+        if (individualCharacters[i] === "") {
+          individualCharacters.splice(i, 1);
         }
       }
 
       if (!this.carriageReturn && line_position !== lines.length - 1) {
-        individual_characters.push("\r");
+        individualCharacters.push("\r");
       }
 
-      for (const part_position in individual_characters) {
-        const part = individual_characters[part_position];
+      for (const part_position in individualCharacters) {
+        const part = individualCharacters[part_position];
         if (
           Object.keys(this.commands).some((variable) => part.includes(variable))
         ) {
           for (const variable in this.commands) {
-            individual_characters[part_position] = individual_characters[
+            individualCharacters[part_position] = individualCharacters[
               part_position
             ]
               .split(variable)
               .join(this.commands[variable] as string);
           }
         } else if (part.startsWith("$")) {
-          individual_characters[part_position] = `[#Unknown tag "${part}"#]`;
+          individualCharacters[part_position] = `[#Unknown tag "${part}"#]`;
         }
       }
 
-      for (const part_position in individual_characters) {
-        let character = individual_characters[part_position];
+      for (const part_position in individualCharacters) {
+        let character = individualCharacters[part_position];
         const possible_function = character.split("(");
         const command = this.commands[possible_function[0] + "()"];
         if (command && typeof command === "function") {
