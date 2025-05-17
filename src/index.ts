@@ -90,7 +90,7 @@ export default class Termfx {
    *             to call the function in the input string.
    * @param func The function to register. It should be a callable function
    *             that performs the desired operation.
-   * @throws {Error} If a function or variable with the same name has already been registered.
+   * @throws {Error} If a function with the same name has already been registered.
    */
   public registerFunction(name: string, func: Function): void {
     name += "()";
@@ -110,7 +110,7 @@ export default class Termfx {
    * @param name The name of the variable to register. This name will be used
    *             to substitute the variable in the input string.
    * @param value The value of the variable to register. It should be a string
-   * @throws {Error} If a function or variable with the same name has already been registered.
+   * @throws {Error} If a variable with the same name has already been registered.
    */
   public registerVariable(name: string, value: string): void {
     name = "$" + name;
