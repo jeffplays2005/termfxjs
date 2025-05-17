@@ -1,0 +1,136 @@
+type WriterFunction = (output: string) => void;
+type CommandFunction = (...args: unknown[]) => Promise<void>;
+
+export default class Termfx {
+  private commands: Record<string, string | CommandFunction>;
+  private split: [string, string];
+  private carriageReturn: boolean;
+
+  constructor(split?: [string, string], carriageReturn: boolean = false) {
+    this.commands = {};
+    this.split = this._validateSplitters(split) || ["<<", ">>"];
+    this.carriageReturn = carriageReturn;
+  }
+
+  public async execute(input: string, writer: WriterFunction): Promise<void> {
+    this._validateExecute(input, writer);
+    const lines = input.split("(?<=\\R)");
+    for (const line_position in lines) {
+      const line = lines[line_position];
+      const individual_characters = line
+        .split(this.split[0])
+        .join(this.split[1])
+        .split(this.split[1]);
+
+      individual_characters.filter((value, index, arr) => {
+        if (value === "") {
+          arr.splice(index, 1);
+          return true;
+        }
+        return false;
+      });
+
+      if (
+        !this.carriageReturn &&
+        parseInt(line_position) !== lines.length - 1
+      ) {
+        individual_characters.push("\r");
+      }
+
+      for (const part_position in individual_characters) {
+        const part = individual_characters[part_position];
+        if (
+          Object.keys(this.commands).some((variable) => part.includes(variable))
+        ) {
+          for (const variable in this.commands) {
+            individual_characters[part_position] = individual_characters[
+              part_position
+            ]
+              .split(variable)
+              .join(this.commands[variable] as string);
+          }
+        } else if (part.startsWith("$")) {
+          individual_characters[part_position] = `[#Unknown tag "${part}"#]`;
+        }
+      }
+
+      for (const part_position in individual_characters) {
+        let character = individual_characters[part_position];
+        const possible_function = character.split("(");
+        const command = this.commands[possible_function[0] + "()"];
+        if (command && typeof command === "function") {
+          await command.apply(
+            null,
+            possible_function[1].split(")").join("").split(/,\s?/),
+          );
+        } else {
+          if (possible_function.length > 1 && character.endsWith(")")) {
+            character = `[#Unknown tag "${possible_function[0] + "()"}"#]`;
+          }
+          writer(character);
+        }
+      }
+    }
+  }
+
+  public registerFunction(name: string, func: CommandFunction): void {
+    name += "()";
+
+    if (this.commands[name]) {
+      throw new Error(
+        "Function with the same name has already been registered",
+      );
+    }
+
+    this.commands[name] = func;
+  }
+
+  public registerVariable(name: string, value: string): void {
+    name = "$" + name;
+
+    if (this.commands[name]) {
+      throw new Error(
+        "Variable with the same name has already been registered",
+      );
+    }
+
+    this.commands[name] = value;
+  }
+
+  private _validateExecute(input: string, writer: WriterFunction): void {
+    if (!input) {
+      throw new Error(
+        "Not enough arguments in call to Execute. Missing input.",
+      );
+    }
+    if (!writer) {
+      throw new Error(
+        "Not enough arguments in call to Execute. Missing writer.",
+      );
+    }
+    if (typeof writer !== "function") {
+      throw new Error("Writer must be a function.");
+    }
+    if (typeof input !== "string") {
+      throw new Error("Input must be a string.");
+    }
+  }
+
+  private _validateSplitters(
+    CustomSplit?: [string, string],
+  ): [string, string] | undefined {
+    if (CustomSplit) {
+      if (!Array.isArray(CustomSplit)) {
+        throw new Error("CustomSplit must be an array");
+      }
+      if (!CustomSplit[0]) {
+        throw new Error("startTag cannot be empty");
+      }
+      if (!CustomSplit[1]) {
+        throw new Error("endTag cannot be empty");
+      }
+      return CustomSplit;
+    }
+    return undefined;
+  }
+}
