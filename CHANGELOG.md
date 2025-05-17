@@ -1,8 +1,3 @@
-## 1.2.1 - refactor: migrate project to TypeScript
-- Refactor to use typescript
-- Added types to the functions
-- Constructor now uses options object
-
 ## 1.0.0 - Initial release
 - Created the module
 
