@@ -5,6 +5,14 @@ export default class Termfx {
   private delimiters: [string, string];
   private carriageReturn: boolean;
 
+  /**
+   * The constructor initializes the Termfx instance with optional configuration
+   *
+   * @param options Optional configuration object, which can include:
+   * - `delimiters`: An array of two strings that define the delimiters for
+   *   variable and function substitution.
+   * - `carriageReturn`: A boolean that indicates whether to add a carriage return
+   */
   constructor(
     options: { delimiters?: [string, string]; carriageReturn?: boolean } = {
       delimiters: ["<<", ">>"],
