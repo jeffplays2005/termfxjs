@@ -128,3 +128,4 @@
 - Remove old JavaScript implementation
 - Optimised validation code to use typescript validator
 - Add JSDoc comments for public methods in Termfx
+- Use `delimiters` terminology instead of `splitters`

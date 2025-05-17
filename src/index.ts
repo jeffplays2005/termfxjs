@@ -2,17 +2,17 @@ type WriterFunction = (output: string) => void;
 
 export default class Termfx {
   private commands: Record<string, string | Function>;
-  private split: [string, string];
+  private delimiters: [string, string];
   private carriageReturn: boolean;
 
   constructor(
-    options: { split?: [string, string]; carriageReturn?: boolean } = {
-      split: ["<<", ">>"],
+    options: { delimiters?: [string, string]; carriageReturn?: boolean } = {
+      delimiters: ["<<", ">>"],
       carriageReturn: false,
     },
   ) {
     this.commands = {};
-    this.split = options.split || ["<<", ">>"];
+    this.delimiters = options.delimiters || ["<<", ">>"];
     this.carriageReturn = options.carriageReturn || false;
   }
 
@@ -27,9 +27,9 @@ export default class Termfx {
     const lines = input.split(/(?<=\r?\n)/);
     for (const [line_position, line] of lines.entries()) {
       const individual_characters = line
-        .split(this.split[0])
-        .join(this.split[1])
-        .split(this.split[1]);
+        .split(this.delimiters[0])
+        .join(this.delimiters[1])
+        .split(this.delimiters[1]);
 
       for (let i = individual_characters.length - 1; i >= 0; i--) {
         if (individual_characters[i] === "") {
