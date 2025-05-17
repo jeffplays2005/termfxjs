@@ -1,6 +1,6 @@
 import Termfx from "../index.js";
 
-const registry = new Termfx(undefined, true); // due to example given in LF format
+const registry = new Termfx({ carriageReturn: true });
 
 (async () => {
   // Register variables

@@ -5,10 +5,15 @@ export default class Termfx {
   private split: [string, string];
   private carriageReturn: boolean;
 
-  constructor(split?: [string, string], carriageReturn: boolean = false) {
+  constructor(
+    options: { split?: [string, string]; carriageReturn?: boolean } = {
+      split: ["<<", ">>"],
+      carriageReturn: false,
+    },
+  ) {
     this.commands = {};
-    this.split = this._validateSplitters(split) || ["<<", ">>"];
-    this.carriageReturn = carriageReturn;
+    this.split = options.split || ["<<", ">>"];
+    this.carriageReturn = options.carriageReturn || false;
   }
 
   public async execute(input: string, writer: WriterFunction): Promise<void> {
@@ -107,23 +112,5 @@ export default class Termfx {
     if (typeof input !== "string") {
       throw new Error("Input must be a string.");
     }
-  }
-
-  private _validateSplitters(
-    CustomSplit?: [string, string],
-  ): [string, string] | undefined {
-    if (CustomSplit) {
-      if (!Array.isArray(CustomSplit)) {
-        throw new Error("CustomSplit must be an array");
-      }
-      if (!CustomSplit[0]) {
-        throw new Error("startTag cannot be empty");
-      }
-      if (!CustomSplit[1]) {
-        throw new Error("endTag cannot be empty");
-      }
-      return CustomSplit;
-    }
-    return undefined;
   }
 }
