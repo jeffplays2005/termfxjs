@@ -127,5 +127,6 @@
 - Refactor constructor to take in options object
 - Remove old JavaScript implementation
 - Refactored validation code (uses implied typings from types); retained custom `validateExecute` method
-- Add JSDoc comments for public methods in Termfx
+- Add JSDoc comments for public methods and constructor
 - Use `delimiters` terminology instead of `splitters`
+- Remove old tests in replacement for examples
