@@ -89,4 +89,9 @@
 * Updated README.md
   - Show future plans to remove the need to declare CRLF/LF break files.
   - Improved the examples.
-  - Better documentation on the methods and what type of parameters they take as input. 
+  - Better documentation on the methods and what type of parameters they take as input.
+## 1.2.0
+* Upgraded to ES6 version of JS which removes a lot of the need for `var` and `let` and replaces them with `const` and `let`.
+* Renamed functions to start with lowercase letters.
+* Updated README.md
+* Updated examples

@@ -1,2 +1,3 @@
-import termfx from "./src/index.js";
-export default termfx;
+import Termfx from "./src";
+
+export default Termfx;
