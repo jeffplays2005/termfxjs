@@ -33,7 +33,12 @@ export default class Termfx {
   public async execute(input: string, writer: WriterFunction): Promise<void> {
     this.validateExecute(input, writer);
     const lines = input.split(/(?<=\r?\n)/);
-    for (const [line_position, line] of lines.entries()) {
+    for (const [pos, line] of lines.entries()) {
+      /**
+       * Replace the first delimiter with the second and then split the string
+       * into segments based on the second delimiter. This ensures consistent
+       * handling of delimiters for variable and function substitution.
+       */
       const segments = line
         .split(this.delimiters[0])
         .join(this.delimiters[1])
@@ -45,7 +50,7 @@ export default class Termfx {
         }
       }
 
-      if (!this.carriageReturn && line_position !== lines.length - 1) {
+      if (!this.carriageReturn && pos !== lines.length - 1) {
         segments.push("\r");
       }
 
