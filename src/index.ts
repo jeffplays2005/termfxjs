@@ -13,7 +13,7 @@ export default class Termfx {
 
   public async execute(input: string, writer: WriterFunction): Promise<void> {
     this.validateExecute(input, writer);
-    const lines = input.split("(?<=\\R)");
+    const lines = input.split(/(?<=\r?\n)/);
     for (const [line_position, line] of lines.entries()) {
       const individual_characters = line
         .split(this.split[0])
