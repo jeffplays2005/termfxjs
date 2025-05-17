@@ -16,6 +16,12 @@ export default class Termfx {
     this.carriageReturn = options.carriageReturn || false;
   }
 
+  /**
+   * Executes the input string by replacing variables and executing functions.
+   *
+   * @param input The input string to be executed
+   * @param writer The function to write the output
+   */
   public async execute(input: string, writer: WriterFunction): Promise<void> {
     this.validateExecute(input, writer);
     const lines = input.split(/(?<=\r?\n)/);
@@ -71,6 +77,12 @@ export default class Termfx {
     }
   }
 
+  /**
+   * Registers a function to be executed when called in the input string.
+   *
+   * @param name The name of the function to register
+   * @param func The function to register
+   */
   public registerFunction(name: string, func: Function): void {
     name += "()";
 
@@ -83,6 +95,12 @@ export default class Termfx {
     this.commands[name] = func;
   }
 
+  /**
+   * Registers a variable to be replaced in the input string.
+   *
+   * @param name The name of the variable to register
+   * @param value The value of the variable to register
+   */
   public registerVariable(name: string, value: string): void {
     name = "$" + name;
 
