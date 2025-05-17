@@ -26,41 +26,33 @@ export default class Termfx {
     this.validateExecute(input, writer);
     const lines = input.split(/(?<=\r?\n)/);
     for (const [line_position, line] of lines.entries()) {
-      const individualCharacters = line
+      const segments = line
         .split(this.delimiters[0])
         .join(this.delimiters[1])
         .split(this.delimiters[1]);
 
-      for (let i = individualCharacters.length - 1; i >= 0; i--) {
-        if (individualCharacters[i] === "") {
-          individualCharacters.splice(i, 1);
+      for (let i = segments.length - 1; i >= 0; i--) {
+        if (segments[i] === "") {
+          segments.splice(i, 1);
         }
       }
 
       if (!this.carriageReturn && line_position !== lines.length - 1) {
-        individualCharacters.push("\r");
+        segments.push("\r");
       }
 
-      for (const part_position in individualCharacters) {
-        const part = individualCharacters[part_position];
-        if (
-          Object.keys(this.commands).some((variable) => part.includes(variable))
-        ) {
-          for (const variable in this.commands) {
-            individualCharacters[part_position] = individualCharacters[
-              part_position
-            ]
-              .split(variable)
-              .join(this.commands[variable] as string);
-          }
-        } else if (part.startsWith("$")) {
-          individualCharacters[part_position] = `[#Unknown tag "${part}"#]`;
+      segments.forEach((token, part_position) => {
+        if (token in this.commands) {
+          segments[part_position] = segments[part_position]
+            .split(token)
+            .join(this.commands[token] as string);
+        } else if (token.startsWith("$")) {
+          segments[part_position] = `[#Unknown tag "${token}"#]`;
         }
-      }
+      });
 
-      for (const part_position in individualCharacters) {
-        let character = individualCharacters[part_position];
-        const possible_function = character.split("(");
+      for (let token of segments) {
+        const possible_function = token.split("(");
         const command = this.commands[possible_function[0] + "()"];
         if (command && typeof command === "function") {
           await command.apply(
@@ -68,10 +60,10 @@ export default class Termfx {
             possible_function[1].split(")").join("").split(/,\s?/),
           );
         } else {
-          if (possible_function.length > 1 && character.endsWith(")")) {
-            character = `[#Unknown tag "${possible_function[0] + "()"}"#]`;
+          if (possible_function.length > 1 && token.endsWith(")")) {
+            token = `[#Unknown tag "${possible_function[0] + "()"}"#]`;
           }
-          writer(character);
+          writer(token);
         }
       }
     }
