@@ -52,16 +52,16 @@ export default class Termfx {
       });
 
       for (let token of segments) {
-        const possible_function = token.split("(");
-        const command = this.commands[possible_function[0] + "()"];
+        const possibleFunction = token.split("(");
+        const command = this.commands[possibleFunction[0] + "()"];
         if (command && typeof command === "function") {
           await command.apply(
             null,
-            possible_function[1].split(")").join("").split(/,\s?/),
+            possibleFunction[1].split(")").join("").split(/,\s?/),
           );
         } else {
-          if (possible_function.length > 1 && token.endsWith(")")) {
-            token = `[#Unknown tag "${possible_function[0] + "()"}"#]`;
+          if (possibleFunction.length > 1 && token.endsWith(")")) {
+            token = `[#Unknown tag "${possibleFunction[0] + "()"}"#]`;
           }
           writer(token);
         }

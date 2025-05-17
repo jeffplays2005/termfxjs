@@ -69,7 +69,7 @@ const registry = new termfx({
 ```
 
 ## Custom delimiters
-Using a custom delimiters that isn't the default `<<`, `>>`.
+Using custom delimiters that aren't the default `<<`, `>>`.
 ```js
 // custom delimiters
 import termfx from "termfx";

@@ -126,6 +126,6 @@
 ## 1.2.1 - refactor: migrate project to TypeScript
 - Refactor constructor to take in options object
 - Remove old JavaScript implementation
-- Optimised validation code to use typescript validator
+- Refactored validation code (uses implied typings from types); retained custom `validateExecute` method
 - Add JSDoc comments for public methods in Termfx
 - Use `delimiters` terminology instead of `splitters`
