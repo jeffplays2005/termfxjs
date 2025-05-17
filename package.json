@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "pnpm run build",
-    "test": "node dist/test/index.js"
+    "run:example": "pnpm run build && node dist/examples/index.js"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,7 @@
 type WriterFunction = (output: string) => void;
-type CommandFunction = (...args: unknown[]) => Promise<void>;
 
 export default class Termfx {
-  private commands: Record<string, string | CommandFunction>;
+  private commands: Record<string, string | Function>;
   private split: [string, string];
   private carriageReturn: boolean;
 
@@ -13,27 +12,21 @@ export default class Termfx {
   }
 
   public async execute(input: string, writer: WriterFunction): Promise<void> {
-    this._validateExecute(input, writer);
+    this.validateExecute(input, writer);
     const lines = input.split("(?<=\\R)");
-    for (const line_position in lines) {
-      const line = lines[line_position];
+    for (const [line_position, line] of lines.entries()) {
       const individual_characters = line
         .split(this.split[0])
         .join(this.split[1])
         .split(this.split[1]);
 
-      individual_characters.filter((value, index, arr) => {
-        if (value === "") {
-          arr.splice(index, 1);
-          return true;
+      for (let i = individual_characters.length - 1; i >= 0; i--) {
+        if (individual_characters[i] === "") {
+          individual_characters.splice(i, 1);
         }
-        return false;
-      });
+      }
 
-      if (
-        !this.carriageReturn &&
-        parseInt(line_position) !== lines.length - 1
-      ) {
+      if (!this.carriageReturn && line_position !== lines.length - 1) {
         individual_characters.push("\r");
       }
 
@@ -73,7 +66,7 @@ export default class Termfx {
     }
   }
 
-  public registerFunction(name: string, func: CommandFunction): void {
+  public registerFunction(name: string, func: Function): void {
     name += "()";
 
     if (this.commands[name]) {
@@ -97,15 +90,15 @@ export default class Termfx {
     this.commands[name] = value;
   }
 
-  private _validateExecute(input: string, writer: WriterFunction): void {
+  private validateExecute(input: string, writer: WriterFunction): void {
     if (!input) {
       throw new Error(
-        "Not enough arguments in call to Execute. Missing input.",
+        "Not enough arguments in call to execute. Missing input.",
       );
     }
     if (!writer) {
       throw new Error(
-        "Not enough arguments in call to Execute. Missing writer.",
+        "Not enough arguments in call to execute. Missing writer.",
       );
     }
     if (typeof writer !== "function") {

@@ -95,3 +95,6 @@
 * Renamed functions to start with lowercase letters.
 * Updated README.md
 * Updated examples
+## 1.2.1
+* Refactor to use typescript
+* Added types to the functions
