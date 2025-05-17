@@ -78,15 +78,19 @@ export default class Termfx {
   }
 
   /**
-   * Registers a function to be executed when called in the input string.
+   * This method allows you to define a custom function that can be invoked
+   * within the input string using the specified name.
    *
-   * @param name The name of the function to register
-   * @param func The function to register
+   * @param name The name of the function to register. This name will be used
+   *             to call the function in the input string.
+   * @param func The function to register. It should be a callable function
+   *             that performs the desired operation.
+   * @throws {Error} If a function or variable with the same name has already been registered.
    */
   public registerFunction(name: string, func: Function): void {
     name += "()";
 
-    if (this.commands[name]) {
+    if (name in this.commands) {
       throw new Error(
         "Function with the same name has already been registered",
       );
@@ -96,15 +100,17 @@ export default class Termfx {
   }
 
   /**
-   * Registers a variable to be replaced in the input string.
+   * This method allows you to register a variable that can be used in the input
    *
-   * @param name The name of the variable to register
-   * @param value The value of the variable to register
+   * @param name The name of the variable to register. This name will be used
+   *             to substitute the variable in the input string.
+   * @param value The value of the variable to register. It should be a string
+   * @throws {Error} If a function or variable with the same name has already been registered.
    */
   public registerVariable(name: string, value: string): void {
     name = "$" + name;
 
-    if (this.commands[name]) {
+    if (name in this.commands) {
       throw new Error(
         "Variable with the same name has already been registered",
       );
