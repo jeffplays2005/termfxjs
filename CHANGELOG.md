@@ -132,3 +132,4 @@
 - Refactor constructor to take in options object
 - Remove old JavaScript implementation
 - Optimised validation code to use typescript validator
+- Add JSDoc comments for public methods in Termfx
