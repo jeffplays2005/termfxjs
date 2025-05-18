@@ -78,7 +78,7 @@ const registry = new termfx({ delimiters: ["[[", "]]"] });
 ```
 
 # Bugs or suggestions
-* Please report any bugs or provide suggestions on [github (https://github.com/jeffplays2005/termfxjs)!
+* Please report any bugs or provide suggestions on [github](https://github.com/jeffplays2005/termfxjs)!
 
 # License
 Copyright Apache 2.0 License © 2022 Jeffplays2005.
